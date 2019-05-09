@@ -1,0 +1,21 @@
+package project.user1.functionaljava.demo
+
+apply plugin: 'application'
+
+mainClassName = "fj.demo.euler.Problem2"
+
+archivesBaseName = "${project.projectName}-${project.name}"
+
+configureAllRetroLambda()
+
+dependencies {
+    compile project(":core")
+    compile project(":quickcheck")
+    testCompile dependencyJunit
+}
+
+test {
+    jacoco {
+        enabled = false
+    }
+}

@@ -1,0 +1,6 @@
+package project.user1.functionaljava
+
+rootProject.name = "functionaljava"
+
+include "core", "demo", "consume", "java8", "quickcheck", "props-core", "props-core-scalacheck", "java-core", "performance"
+

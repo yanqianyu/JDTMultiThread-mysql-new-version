@@ -1,0 +1,20 @@
+package project.user1.functionaljava.core
+
+ext {
+    signModule = true
+}
+
+archivesBaseName = project.projectName
+
+dependencies {
+    testCompile dependencyJunit
+    testCompile 'com.h2database:h2:1.4.196'
+    testCompile 'commons-dbutils:commons-dbutils:1.7'
+}
+
+performSigning(signingEnabled, signModule)
+configureUpload(signingEnabled, signModule)
+
+uploadArchives.enabled = true
+
+configureAllRetroLambda()

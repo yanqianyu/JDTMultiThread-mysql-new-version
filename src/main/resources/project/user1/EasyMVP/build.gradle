@@ -1,0 +1,59 @@
+package project.user1.EasyMVP
+
+buildscript {
+
+    apply from: rootProject.file('buildsystem/dependencies.gradle')
+
+    repositories {
+        jcenter()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url 'https://maven.google.com' }
+    }
+    dependencies {
+        classpath deps.androidPlugin
+        classpath deps.gradleBintrayPlugin
+        classpath deps.buildInfoExtractorGradle
+        classpath deps.versioning
+        classpath deps.weaverPlugin
+        classpath deps.androidApt
+        classpath deps.hugo
+    }
+}
+
+group GROUP
+version VERSION_NAME
+
+subprojects { subproj ->
+    group GROUP
+    version VERSION_NAME
+
+    buildscript {
+        apply from: rootProject.file('buildsystem/dependencies.gradle')
+    }
+
+    apply from: rootProject.file('buildsystem/dependencies.gradle')
+
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+        maven { url "https://oss.jfrog.org/oss-snapshot-local/" }
+        maven { url 'https://maven.google.com' }
+    }
+
+    subproj.tasks.withType(JavaCompile) {
+        sourceCompatibility = 1.7
+        targetCompatibility = 1.7
+    }
+
+    subproj.tasks.withType(GroovyCompile) {
+        sourceCompatibility = 1.7
+        targetCompatibility = 1.7
+    }
+
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

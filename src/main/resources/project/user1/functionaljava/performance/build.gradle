@@ -1,0 +1,8 @@
+package project.user1.functionaljava.performance
+
+configureAllRetroLambda()
+
+dependencies {
+    compile project(":core")
+    testCompile dependencyJunit
+}

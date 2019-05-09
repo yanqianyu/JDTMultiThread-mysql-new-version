@@ -1,0 +1,9 @@
+package project.user1.functionaljava.consume
+
+archivesBaseName = "${project.projectName}-${project.name}"
+
+dependencies {
+    compile("$group:$projectName:$fjConsumeVersion")
+
+    testCompile dependencyJunit
+}

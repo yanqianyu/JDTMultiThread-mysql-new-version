@@ -1,0 +1,3 @@
+package project.user1.AVLoadingIndicatorView
+
+include ':app', ':library'
