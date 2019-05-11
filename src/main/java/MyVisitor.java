@@ -1,4 +1,7 @@
 import org.eclipse.jdt.core.dom.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -195,9 +198,11 @@ public class MyVisitor extends ASTVisitor{
             }
         }
 
-        ArrayList<Map<String, Object>> finalAST = new ArrayList<>();
+        JSONObject finalAST = new JSONObject();
+        // ArrayList<Map<String, Object>> finalAST = new ArrayList<>();
         for (int i = 0; i < astNodes.size(); i++) {
-            Map<String, Object> treeNode = new HashMap<>();
+            JSONObject treeNode = new JSONObject();
+            // Map<String, Object> treeNode = new HashMap<>();
             treeNode.put("index", i);
             String type = astNodes.get(i).getClass().toString();
 
@@ -217,10 +222,12 @@ public class MyVisitor extends ASTVisitor{
                     treeNode.put("value", n.toString());
                 }
             }
-            finalAST.add(treeNode);
+            finalAST.put(String.valueOf(i), treeNode);
+            // finalAST.add(treeNode);
         }
 
         //写入json文件
+        // System.out.println(finalAST.toString());
         return finalAST.toString();
     }
 
