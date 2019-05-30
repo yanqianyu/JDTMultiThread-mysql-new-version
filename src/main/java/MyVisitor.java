@@ -292,15 +292,17 @@ public class MyVisitor extends ASTVisitor{
                     ITypeBinding typeBinding = expr.resolveTypeBinding();
                     if(typeBinding != null){
                         String qualifiedName = typeBinding.getQualifiedName();
-                        Pattern p = Pattern.compile("<|>|,");
-                        Matcher m = p.matcher(qualifiedName);
-                        String[] className = p.split(qualifiedName);
-                        StringBuffer api = new StringBuffer();
+                        if(isJdkApi(qualifiedName)) {
+                            Pattern p = Pattern.compile("<|>|,");
+                            Matcher m = p.matcher(qualifiedName);
+                            String[] className = p.split(qualifiedName);
+                            StringBuffer api = new StringBuffer();
 
-                        api.append(" ");
-                        api.append(node.getName());
-                        matcher(api, m, className);
-                        apiseq.add(api.toString().replaceAll(" +", " ").trim());
+                            api.append(" ");
+                            api.append(node.getName());
+                            matcher(api, m, className);
+                            apiseq.add(api.toString().replaceAll(" +", " ").trim());
+                        }
                         //System.out.println("api: " + api.toString().replaceAll(" +", " "));
 //                        if(isJdkApi(qualifiedName)){
 //                            ret.add(qualifiedName + " " + node.getName());
