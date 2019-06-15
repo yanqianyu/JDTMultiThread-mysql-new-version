@@ -1,6 +1,4 @@
 import org.eclipse.jdt.core.dom.*;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +6,8 @@ import java.sql.SQLException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.*;
+
+import net.sf.json.JSONArray;
 
 public class MyVisitor extends ASTVisitor{
     static AtomicInteger id = new AtomicInteger();
@@ -198,11 +198,11 @@ public class MyVisitor extends ASTVisitor{
             }
         }
 
-        JSONObject finalAST = new JSONObject();
-        // ArrayList<Map<String, Object>> finalAST = new ArrayList<>();
+        // JSONObject finalAST = new JSONObject();
+        ArrayList<Map<String, Object>> finalAST = new ArrayList<>();
         for (int i = 0; i < astNodes.size(); i++) {
-            JSONObject treeNode = new JSONObject();
-            // Map<String, Object> treeNode = new HashMap<>();
+            // JSONObject treeNode = new JSONObject();
+            Map<String, Object> treeNode = new HashMap<>();
             treeNode.put("index", i);
             String type = astNodes.get(i).getClass().toString();
 
@@ -222,13 +222,14 @@ public class MyVisitor extends ASTVisitor{
                     treeNode.put("value", n.toString());
                 }
             }
-            finalAST.put(String.valueOf(i), treeNode);
-            // finalAST.add(treeNode);
+            // finalAST.put(String.valueOf(i), treeNode);
+            finalAST.add(treeNode);
         }
 
         //写入json文件
         // System.out.println(finalAST.toString());
-        return finalAST.toString();
+        JSONArray jsonArray = JSONArray.fromObject(finalAST);
+        return jsonArray.toString();
     }
 
     @Override
@@ -246,7 +247,7 @@ public class MyVisitor extends ASTVisitor{
 
         String bodyToken = "";
 
-        bodyToken = getTokens(node.toString());
+        bodyToken = getTokens(block.toString());
 
         methName = parseMethname(node.getName().toString());
 
